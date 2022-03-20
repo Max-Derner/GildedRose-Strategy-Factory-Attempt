@@ -2,18 +2,20 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
+    IStrategy[] strategies;
     //StaticStrategyFactory factory = new StaticStrategyFactory();//TODO remove this given it's a static class
 
     public GildedRose(Item[] items) {
         this.items = items;
-        for(Item item: items){
-            item=(Item) StaticStrategyFactory.create(item);//This feels very wrong, is it?
+        strategies = new IStrategy[items.length];
+        for(int i=0; i<items.length;i++){
+            strategies[i]= StaticStrategyFactory.create(items[i]);//This feels very wrong, is it?
         }
     }
 
 
     public void updateQuality() {
-        for(Item item: items){
+        for(IStrategy item: strategies){
             IStrategy.update();//ERROR:  Non-static method 'update()' cannot be referenced from a static context
         }
 
